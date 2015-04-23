@@ -1,7 +1,6 @@
 # Electron Demo
 
-Simple electron starter app since if you ask me the official [Electron-Starter](https://github.com/atom/electron-starter/blob/master/src/renderer/main.coffee) seems way too 
-complicated.  
+Simple electron starter app since if you ask me the official [Electron-Starter](https://github.com/atom/electron-starter) seems way too complicated.  
 
 ## Features 
 
