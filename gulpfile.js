@@ -90,7 +90,7 @@ gulp.task('watch', function() {
 })
 
 // electron-prebuilt is installed as `node_modules/.bin/electron`
-gulp.task('launch', shell.task(['electron . --proxy-server=http://localhost:3000']))
+gulp.task('launch', shell.task(['electron .' /* --proxy-server=http://localhost:3000'*/]))
 
 gulp.task('run', ['js','less','html','browser-sync','watch','launch'])
 gulp.task('default', ['run'])
