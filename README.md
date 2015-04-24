@@ -4,6 +4,8 @@ Simple [Electron](https://github.com/atom/electron) (formerly Atom Shell) boiler
 since if you ask me the official [Electron-Starter](https://github.com/atom/electron-starter) 
 seems overly-complicated.
 
+[![Circle CI](https://circleci.com/gh/thom-nic/electron-demo.svg?style=svg)](https://circleci.com/gh/thom-nic/electron-demo) [![Dependencies](https://david-dm.org/thom-nic/electron-demo.svg)](https://david-dm.org/thom-nic/electron-demo)
+
 ![electron-demo mov](https://cloud.githubusercontent.com/assets/95562/7319912/2004f03a-ea67-11e4-852f-f558af75b078.gif)
 
 ## Features
