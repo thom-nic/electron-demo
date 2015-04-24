@@ -12,7 +12,7 @@ env:
 rules:
   comma-dangle: 0
   comma-spacing: 0
-  curly: 1
+  curly: [1, "multi"]
   indent: [1, 2]
   semi: 0
   quotes: 0
@@ -25,8 +25,10 @@ rules:
   no-undefined: 2
   no-underscore-dangle: 0
   no-unused-vars: 1
+  no-use-before-define: [1, "nofunc"]
   space-after-keywords: [1, "always"]
   space-before-blocks: 1
+  space-unary-ops: 0
   strict: [2, "global"]
   valid-jsdoc: [2, { prefer: { "return": "returns"}}]
 
