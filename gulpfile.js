@@ -2,12 +2,12 @@
 
 let gulp = require('gulp'),
     browserify = require('browserify'),
-    //babelify = require("babelify"),
     source = require('vinyl-source-stream'),
     gutil = require('gulp-util'),
     eslint = require('gulp-eslint'),
     bs = require('browser-sync').create(),
     less = require('gulp-less'),
+    mocha = require('gulp-mocha'),
     shell = require('gulp-shell'),
     join = require('path').join,
     del = require('del')
@@ -89,9 +89,25 @@ gulp.task('watch', function() {
   gulp.watch(INDEX_HTML, ['html'])
 })
 
+gulp.task('mocha', function() {
+  process.env.NODE_ENV = process.env.NODE_ENV || "test"
+  require('babel/register')
+  return gulp.src('test/**/*.js', {read: false})
+        .pipe(mocha({
+          require: "babel/register",
+          ui: "bdd",
+          timeout: "6000",
+          reporter: "nyan"
+        }))
+        .once('error', function() { process.exit(1) })
+        .once('end', function() { process.exit() })
+})
+
 // electron-prebuilt is installed as `node_modules/.bin/electron`
 gulp.task('launch', shell.task(['electron .' /* --proxy-server=http://localhost:3000'*/]))
 
-gulp.task('run', ['js','less','html','lint','browser-sync','watch','launch'])
+gulp.task('build', ['js','less','html'])
+gulp.task('test', ['build','mocha'])
+gulp.task('run', ['build','lint','watch','launch'])
 gulp.task('default', ['run'])
 

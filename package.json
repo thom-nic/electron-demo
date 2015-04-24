@@ -5,11 +5,11 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "gulp run",
+    "start":  "gulp run",
     "launch": "gulp launch",
-    "test": "mocha spec/",
-    "lint": "gulp lint",
-    "clean": "gulp clean"
+    "test":   "gulp test",
+    "lint":   "gulp lint",
+    "clean":  "gulp clean"
   },
   "repository": {
     "type": "git",
@@ -47,12 +47,13 @@
     "gulp": "^3.8.11",
     "gulp-eslint": "^0.9.0",
     "gulp-less": "^3.0.3",
+    "gulp-mocha": "^2.0.1",
     "gulp-shell": "^0.4.1",
-    "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.4",
     "less": "^2.5.0",
     "mithrilify": "0.0.3",
     "mocha": "^2.2.4",
+    "phantom": "^0.7.2",
     "sinon": "^1.14.1",
     "skeleton-less": "^2.0.1",
     "vinyl-source-stream": "^1.1.0"
