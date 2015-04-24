@@ -16,6 +16,7 @@ seems overly-complicated.
 ## Getting Started
 
 ```
+nvm install
 npm install
 npm start
 ```
