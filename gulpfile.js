@@ -91,7 +91,7 @@ gulp.task('watch', function() {
   gulp.watch(INDEX_HTML, ['html'])
 })
 
-gulp.task('mocha', function() {
+gulp.task('mocha', ['build'], function() {
   process.env.NODE_ENV = process.env.NODE_ENV || "test"
   require('babel/register')
   return gulp.src('test/**/*.js', {read: false})
@@ -109,7 +109,7 @@ gulp.task('mocha', function() {
 gulp.task('launch', shell.task(['electron .' /* --proxy-server=http://localhost:3000'*/]))
 
 gulp.task('build', ['js','less','html'])
-gulp.task('test', ['build','mocha'])
+gulp.task('test', ['mocha'])
 gulp.task('run', ['build','lint','watch','launch'])
 gulp.task('default', ['run'])
 
