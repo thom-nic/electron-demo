@@ -91,7 +91,7 @@ gulp.task('watch', function() {
   gulp.watch(INDEX_HTML, ['html'])
 })
 
-gulp.task('mocha', ['build'], function() {
+gulp.task('mocha', ['build','browser-sync'], function() {
   process.env.NODE_ENV = process.env.NODE_ENV || "test"
   require('babel/register')
   return gulp.src('test/**/*.js', {read: false})

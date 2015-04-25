@@ -5,7 +5,7 @@
 import phantom from 'phantom'
 import {expect} from 'chai'
 
-const BASE_URL = `file:${process.cwd()}/dist/index.html`
+const BASE_URL = `http://localhost:3000`
 const PAGE_TITLE = 'Electron Demo'
 
 describe('functional tests', () => {
