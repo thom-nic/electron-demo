@@ -4,6 +4,7 @@ let gulp = require('gulp'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     gutil = require('gulp-util'),
+    c = gutil.colors,
     eslint = require('gulp-eslint'),
     bs = require('browser-sync').create(),
     less = require('gulp-less'),
@@ -29,19 +30,15 @@ const browserifyOpts = {
 }
 const reloadOpts = {stream:true}
 
-let bundler = browserify(browserifyOpts)
-
-bundler
-  .on('error', function(err) {
-    gutil.log('Browserify Error', err)
-    bs.notify('Browserify error', err)
-    this.emit('end')
-  })
-  .on('log', gutil.log)
-
 gulp.task('js', function() {
-  return bundler
+  return browserify(browserifyOpts)
     .bundle()
+    .on('error', function(err) {
+      gutil.log(c.red('[JS]'), err.toString(), '\n'+ err.codeFrame)
+      bs.notify('JS error', err)
+      this.emit('end')
+    })
+    .on('log', gutil.log)
     .pipe(source(DEST_JS_FILE))
     .pipe(gulp.dest(OUTDIR))
     .pipe(bs.reload(reloadOpts))
@@ -50,6 +47,11 @@ gulp.task('js', function() {
 gulp.task('less', function() {
   return gulp.src(CSS_GLOB)
     .pipe(less({paths: LESS_INCLUDES}))
+    .on('error', function(err) {
+      gutil.log('CSS error', err.message)
+      bs.notify('CSS error', err)
+      this.emit('end')
+    })
     .pipe(gulp.dest(OUTDIR))
     .pipe(bs.reload(reloadOpts))
 })
