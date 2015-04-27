@@ -14,21 +14,22 @@ let gulp = require('gulp'),
     del = require('del')
 
 
-const OUTDIR = './dist'
-const INDEX_HTML = join(__dirname,'assets/index.html')
-const DEST_JS_FILE = 'index.js'
-const CLIENT_SRC = join(__dirname,'lib/renderer')
-const CLIENT_MAIN = join(CLIENT_SRC,'index.js')
-const CSS_GLOB = './assets/css/**/*.less'
-const LESS_INCLUDES = [
-  'node_modules/skeleton-less/less'
-]
-const browserifyOpts = {
-  entries: [CLIENT_MAIN],
-  transform: ['babelify', 'mithrilify'],
-  debug: true
-}
-const reloadOpts = {stream:true}
+const OUTDIR = './dist',
+      INDEX_HTML = join(__dirname,'assets/index.html'),
+      DEST_JS_FILE = 'index.js',
+      CLIENT_SRC = join(__dirname,'lib/renderer'),
+      CLIENT_MAIN = join(CLIENT_SRC,'index.js'),
+      CSS_GLOB = './assets/css/**/*.less',
+      LESS_INCLUDES = [
+        'node_modules/skeleton-less/less'
+      ],
+      browserifyOpts = {
+        entries: [CLIENT_MAIN],
+        transform: ['babelify', 'mithrilify'],
+        debug: true
+      },
+      reloadOpts = {stream:true}
+
 
 gulp.task('js', function() {
   return browserify(browserifyOpts)
@@ -63,14 +64,14 @@ gulp.task('html', function() {
 })
 
 gulp.task('lint', function() {
-  gulp.src([join(CLIENT_SRC,'**/*.js')])
+  return gulp.src([join(CLIENT_SRC,'**/*.js')])
     .pipe(eslint())
     .pipe(eslint.format())
     //.pipe(eslint.failOnError())
 })
 
 gulp.task('clean', function(done) {
-  del([OUTDIR], done)
+  return del([OUTDIR], done)
 })
 
 // TODO Unfortunately this doesn't seem to reload the Electron shell properly.
@@ -106,7 +107,7 @@ gulp.task('mocha', ['build','browser-sync'], function() {
 })
 
 // electron-prebuilt is installed as `node_modules/.bin/electron`
-gulp.task('launch', shell.task(['electron .' /* --proxy-server=http://localhost:3000'*/]))
+gulp.task('launch', ['build'], shell.task(['electron .' /* --proxy-server=http://localhost:3000'*/]))
 
 gulp.task('build', ['js','less','html'])
 gulp.task('test', ['mocha'])
