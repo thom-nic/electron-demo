@@ -107,7 +107,12 @@ gulp.task('mocha', ['build','browser-sync'], function() {
 })
 
 // electron-prebuilt is installed as `node_modules/.bin/electron`
-gulp.task('launch', ['build'], shell.task(['electron .' /* --proxy-server=http://localhost:3000'*/]))
+gulp.task('launch', ['build'], function() {
+  return gulp
+    .src('.')
+    .pipe(shell(['electron .' /* --proxy-server=http://localhost:3000'*/]))
+    .once('end', process.exit)
+})
 
 gulp.task('build', ['js','less','html'])
 gulp.task('test', ['mocha'])
