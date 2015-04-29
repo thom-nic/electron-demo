@@ -1,8 +1,6 @@
 'use strict';
 
 let gulp = require('gulp'),
-    browserify = require('browserify'),
-    source = require('vinyl-source-stream'),
     gutil = require('gulp-util'),
     c = gutil.colors,
     eslint = require('gulp-eslint'),
@@ -16,7 +14,6 @@ let gulp = require('gulp'),
 
 const OUTDIR = './dist',
       INDEX_HTML = join(__dirname,'assets/index.html'),
-      DEST_JS_FILE = 'index.js',
       CLIENT_SRC = join(__dirname,'lib/renderer'),
       CLIENT_MAIN = join(CLIENT_SRC,'index.js'),
       CSS_GLOB = './assets/css/**/*.less',
@@ -32,15 +29,8 @@ const OUTDIR = './dist',
 
 
 gulp.task('js', function() {
-  return browserify(browserifyOpts)
-    .bundle()
-    .on('error', function(err) {
-      gutil.log(c.red('[JS]'), err.toString(), '\n'+ err.codeFrame)
-      bs.notify('JS error', err)
-      this.emit('end')
-    })
-    .on('log', gutil.log)
-    .pipe(source(DEST_JS_FILE))
+  return gulp
+    .src(join(CLIENT_SRC,'**/*.js'))
     .pipe(gulp.dest(OUTDIR))
     .pipe(bs.reload(reloadOpts))
 })
@@ -49,7 +39,7 @@ gulp.task('less', function() {
   return gulp.src(CSS_GLOB)
     .pipe(less({paths: LESS_INCLUDES}))
     .on('error', function(err) {
-      gutil.log('CSS error', err.message)
+      gutil.log(c.red('[CSS]'), err.message)
       bs.notify('CSS error', err)
       this.emit('end')
     })

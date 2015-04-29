@@ -12,8 +12,11 @@ seems overly-complicated.
 
 * ES6 support (via babel) + eslint
 * Less CSS
-* Browserify
-* Mithril + MSX (could be swapped for React/JSX)
+* Mithril
+
+**Note:** There's technically no need for browserify (unless you want to use it
+for something like JSX/ MSX transforms) since Electron already provides the 
+full node.js environment in the browser.
 
 ## Getting Started
 

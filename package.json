@@ -36,10 +36,7 @@
     "nslog": "^2.0.0"
   },
   "devDependencies": {
-    "babel": "^5.1.11",
-    "babelify": "^6.0.2",
     "browser-sync": "^2.6.4",
-    "browserify": "^9.0.8",
     "chai": "^2.2.0",
     "del": "^1.1.1",
     "electron-prebuilt": "^0.24.0",
@@ -51,11 +48,9 @@
     "gulp-shell": "^0.4.1",
     "gulp-util": "^3.0.4",
     "less": "^2.5.0",
-    "mithrilify": "0.0.3",
     "mocha": "^2.2.4",
     "phantom": "^0.7.2",
     "sinon": "^1.14.1",
-    "skeleton-less": "^2.0.1",
-    "vinyl-source-stream": "^1.1.0"
+    "skeleton-less": "^2.0.1"
   }
 }
