@@ -15,6 +15,7 @@ let gulp = require('gulp'),
 
 
 const OUTDIR = './dist',
+      SERVER_PORT = 8888,
       INDEX_HTML = join(__dirname,'assets/index.html'),
       DEST_JS_FILE = 'index.js',
       CLIENT_SRC = join(__dirname,'lib/renderer'),
@@ -82,6 +83,7 @@ gulp.task('clean', function(done) {
 // it in the app.
 gulp.task('browser-sync', function() {
   bs.init({
+    port: SERVER_PORT,
     open: false,
     server: { baseDir: OUTDIR }
   })
@@ -105,7 +107,10 @@ gulp.task('mocha', ['build','browser-sync'], function() {
           timeout: "6000",
           reporter: "nyan"
         }))
-        .once('error', function() { process.exit(1) })
+        .once('error', function(err) { 
+          gutil.log(c.red('[mocha]'), err.message)
+          process.exit(1) 
+        })
         .once('end', function() { process.exit() })
 })
 
@@ -113,7 +118,7 @@ gulp.task('mocha', ['build','browser-sync'], function() {
 gulp.task('launch', ['build'], function() {
   return gulp
     .src('.')
-    .pipe(shell(['electron .' /* --proxy-server=http://localhost:3000'*/]))
+    .pipe(shell(['electron .' /* --proxy-server=http://localhost:${SERVER_PORT}`*/]))
     .once('end', process.exit)
 })
 

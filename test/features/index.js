@@ -2,58 +2,48 @@
 
 /* eslint-env mocha, browser, node, es6, jquery */
 
-import phantom from 'phantom'
-import {expect} from 'chai'
+//import {expect} from 'chai'
+import Browser from 'zombie'
 
-const BASE_URL = `http://localhost:3000`
-const PAGE_TITLE = 'Electron Demo'
+const PORT = 8888,
+      PAGE_TITLE = 'Electron Demo'
 
-describe('functional tests', () => {
-  let driver = null,
-      page = null
+Browser.localhost('localhost', PORT)
 
-  before( (done) => {
-    phantom.create( (ph) => {
-      driver = ph
-      driver.createPage( (_page) => {
-        page = _page
-        page.onError = (msg,trace) => {
-          throw new Error(`Page error: ${msg}`)
-        }
-        done()
-      })
+describe('User visits page', function() {
+
+  const browser = new Browser()
+
+  before(function(done) {
+    browser.visit('/', done)
+  })
+
+  describe('base page', function() {
+    it("should load the page", function() {
+      browser.assert.success()
+    })
+
+    it("should have content", function() {
+      browser.assert.text('title',PAGE_TITLE)
+      browser.assert.element('github-repos table')
     })
   })
 
-  after( (done) => {
-    driver.exit()
-    done()
-  })
+  describe('gets repos', function() {
 
-  it('should load the page', (done) => {
-    page.open(BASE_URL, (status) => {
-      expect(status).to.equal('success')
-      page.evaluate( () => { return document.title },
-        (title) => {
-          expect(title).to.equal(PAGE_TITLE)
-          done()
-        }
-      )
+    before(function(done) {
+      browser
+        .fill('gh_username','substack')
+        .pressButton('Show Repos', done)
+    })
+
+    it('should be successful', function() {
+      browser.assert.success()
+    })
+
+    it('should load repos for that user', function() {
+      browser.assert.elements('github-repos table tbody tr')
     })
   })
 
-  it('should have some content', (done) => {
-    page.open(BASE_URL, (status) => {
-      expect(status).to.equal('success')
-      page.includeJs('http://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.4/zepto.min.js', () => {
-        page.evaluate(() => {
-          return $('#content')
-        },
-        (list) => {
-          expect(list).to.not.be.empty
-          done()
-        })
-      })
-    })
-  })
 })
