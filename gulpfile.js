@@ -26,6 +26,9 @@ const OUTDIR = './dist',
       browserifyOpts = {
         entries: [CLIENT_MAIN],
         transform: ['babelify', 'mithrilify'],
+        insertGlobalVars: ['__filename','__dirname'],
+        builtins: false,
+        commondir: false,
         debug: true
       },
       reloadOpts = {stream:true}
@@ -49,7 +52,7 @@ gulp.task('less', function() {
   return gulp.src(CSS_GLOB)
     .pipe(less({paths: LESS_INCLUDES}))
     .on('error', function(err) {
-      gutil.log('CSS error', err.message)
+      gutil.log(c.red('[CSS]'), err.message)
       bs.notify('CSS error', err)
       this.emit('end')
     })
