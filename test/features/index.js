@@ -47,7 +47,7 @@ describe('functional tests', () => {
       expect(status).to.equal('success')
       page.includeJs('http://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.4/zepto.min.js', () => {
         page.evaluate(() => {
-          return $('#content')
+          return $('github-repos')
         },
         (list) => {
           expect(list).to.not.be.empty
