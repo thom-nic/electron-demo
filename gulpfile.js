@@ -105,7 +105,7 @@ gulp.task('mocha', ['build','browser-sync'], function() {
           require: "babel/register",
           ui: "bdd",
           timeout: "6000",
-          reporter: "nyan"
+          reporter: "spec"
         }))
         .once('error', function(err) { 
           gutil.log(c.red('[mocha]'), err.message)
