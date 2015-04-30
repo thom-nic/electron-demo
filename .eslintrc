@@ -29,6 +29,6 @@ rules:
   space-after-keywords: [1, "always"]
   space-before-blocks: 1
   space-unary-ops: 0
-  strict: [2, "global"]
+  strict: [1, "global"]
   valid-jsdoc: [2, { prefer: { "return": "returns"}}]
 
